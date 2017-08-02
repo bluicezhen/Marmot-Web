@@ -4,7 +4,7 @@ import conf from '../conf';
 let host = conf.server_host;
 
 
-export default function (method, url, {body_params = {}, url_params = {}}) {
+export default async function (method, url, {body_params = {}, url_params = {}}) {
   let headers = {};
   try {
     let accessToken = sessionStorage.getItem('AccessToken');
@@ -13,7 +13,8 @@ export default function (method, url, {body_params = {}, url_params = {}}) {
       headers['AccessToken'] = accessToken;
       headers['UserID'] = `${userID}`;
     }
-  } catch (e) {}
+  } catch (e) {
+  }
 
   let url_paramsStr = '';
   for (let url_paramsKey in url_params) {
@@ -24,7 +25,7 @@ export default function (method, url, {body_params = {}, url_params = {}}) {
     url_paramsStr = `?${url_paramsStr}`.slice(0, -1);
   }
 
-  return axios.request({
+  return await axios.request({
     url: `${host}${url}${url_paramsStr}`,
     method,
     headers,
