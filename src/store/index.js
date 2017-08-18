@@ -7,16 +7,27 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   plugins: [createPersist({
-    namespace: 'namespace-for-state',
+    namespace: 'vuex',
     initialState: {},
     expires: 7 * 24 * 60 * 60 * 1e3
   })],
   state: {
-    count: 0
+    user: {
+      info: null,
+      is_login: false
+    }
+  },
+  getters: {
+    user: state => state.user
   },
   mutations: {
-    increment (state) {
-      state.count++
+    user_set (state, user_info) {
+      state.user.info = user_info;
+      state.user.is_login = true;
     }
+  },
+  actions: {
   }
 });
+
+export default store;
