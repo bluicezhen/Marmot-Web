@@ -14,7 +14,9 @@ const store = new Vuex.Store({
   state: {
     user: {
       info: null,
-      is_login: false
+      is_login: false,
+      token: null,
+      uuid: null
     }
   },
   getters: {
@@ -24,9 +26,20 @@ const store = new Vuex.Store({
     user_set (state, user_info) {
       state.user.info = user_info;
       state.user.is_login = true;
+    },
+    user_token_set (state, { uuid, token }) {
+      state.user.uuid = uuid;
+      state.user.token = token;
     }
   },
   actions: {
+    user_set (context, user_info) {
+      context.commit('user_set', user_info);
+    },
+    user_token_set (context, { user_uuid, token} ) {
+      context.commit('user_set', { user_uuid, token });
+    }
+
   }
 });
 

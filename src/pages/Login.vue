@@ -20,6 +20,7 @@
 <script>
   import server from '../lib/server';
   import handler_exception_ajax from '../lib/handle_exception_ajax'
+  import { mapActions } from 'vuex'
 
   export default {
     data() {
@@ -42,9 +43,7 @@
         }
         try {
           let res = await server.user_token_post(this.login_info);
-          let user_token = res.data;
-          sessionStorage.setItem('user_uuid', user_token.user_uuid);
-          sessionStorage.setItem('user_token', user_token.token);
+          this.user_token_set(res.data);
           this.$message({
             showClose: true,
             message: 'Login Success',
@@ -54,7 +53,11 @@
           console.log(e);
           handler_exception_ajax(e, this);
         }
-      }
+      },
+      ...mapActions({
+        user_set: 'user_set',
+        user_token_set: 'user_token_set'
+      })
     }
   }
 </script>
