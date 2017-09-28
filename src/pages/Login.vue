@@ -31,6 +31,21 @@
         }
       }
     },
+    created () {
+      if (this.user.is_login) {
+        this.$message({
+          showClose: true,
+          message: 'Login',
+          type: 'success'
+        });
+        this.$router.replace("/event");
+      }
+    },
+    computed: {
+      user () {
+        return this.$store.state.user;
+      }
+    },
     methods: {
       async login() {
         if (this.login_info.username.length <= 0 || this.login_info.password.length <= 0) {
@@ -49,6 +64,7 @@
             message: 'Login Success',
             type: 'success'
           });
+          this.$router.replace("/event");
         } catch (e) {
           console.log(e);
           handler_exception_ajax(e, this);

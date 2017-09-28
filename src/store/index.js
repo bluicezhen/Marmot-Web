@@ -15,8 +15,6 @@ const store = new Vuex.Store({
     user: {
       info: null,
       is_login: false,
-      token: null,
-      uuid: null
     }
   },
   getters: {
